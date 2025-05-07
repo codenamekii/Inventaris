@@ -7,6 +7,11 @@
     </li>
   </ul>
 
+  <!-- Center navbar brand -->
+  <div class="navbar-brand mx-auto font-weight-bold">
+    <h4 class="mb-0">PT. ANDI SEPEG</h4>
+  </div>
+
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
    

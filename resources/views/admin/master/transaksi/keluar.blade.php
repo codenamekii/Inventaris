@@ -30,16 +30,16 @@
                                 <table id="data-barang" width="100%"  class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                                     <thead>
                                         <tr>
-                                            <th class="border-bottom-0" width="8%">{{__('no')}}</th>
-                                            <th class="border-bottom-0">{{__('photo')}}</th>
-                                            <th class="border-bottom-0">{{__('item code')}}</th>
-                                            <th class="border-bottom-0">{{__('name')}}</th>
-                                            <th class="border-bottom-0">{{__('type')}}</th>
-                                            <th class="border-bottom-0">{{__('unit')}}</th>
-                                            <th class="border-bottom-0">{{__('brand')}}</th>
-                                            <th class="border-bottom-0">{{__('first stock')}}</th>
-                                            <th class="border-bottom-0">{{__('price')}}</th>
-                                            <th class="border-bottom-0" width="1%">{{__('action')}}</th>
+                                            <th class="border-bottom-0" width="8%">{{__("no")}}</th>
+                                            <th class="border-bottom-0">{{__("photo")}}</th>
+                                            <th class="border-bottom-0">{{__("item code")}}</th>
+                                            <th class="border-bottom-0">{{__("name")}}</th>
+                                            <th class="border-bottom-0">{{__("type")}}</th>
+                                            <th class="border-bottom-0">{{__("unit")}}</th>
+                                            <th class="border-bottom-0">{{__("brand")}}</th>
+                                            <th class="border-bottom-0">{{__("first stock")}}</th>
+                                            <th class="border-bottom-0">{{__("price")}}</th>
+                                            <th class="border-bottom-0" width="1%">{{__("action")}}</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -65,12 +65,10 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <div class="form-group">
-                                        <label for="kode" class="form-label">{{__("outgoing item code")}}<span class="text-danger">*</span></label>
-                                        <input type="text" name="kode" readonly class="form-control">
-                                        <input type="hidden" name="id"/>
-                                        <input type="hidden" name="id_barang"/>
-                                    </div>
+                                    <!-- Removed the outgoing item code field -->
+                                    <input type="hidden" name="id"/>
+                                    <input type="hidden" name="id_barang"/>
+                                    <input type="hidden" name="kode"/>
                                     <div class="form-group">
                                         <label for="tanggal_keluar" class="form-label">{{__("out date")}} <span class="text-danger">*</span></label>
                                         <input type="date" name="tanggal_keluar" class="form-control">
@@ -134,7 +132,7 @@
                                 <tr>
                                     <th class="border-bottom-0" width="8%">{{__("no")}}</th>
                                     <th class="border-bottom-0">{{__("date")}}</th>
-                                    <th class="border-bottom-0">{{__("outgoing item code")}}</th>
+                                    
                                     <th class="border-bottom-0">{{__("item code")}}</th>
                                     <th class="border-bottom-0">{{__("customer")}}</th>
                                     <th class="border-bottom-0">{{__("item")}}</th>
@@ -266,11 +264,11 @@
 
 
     function simpan(){
-        const item_id =  $("input[name='id_barang']").val();
+        const item_id = $("input[name='id_barang']").val();
         const user_id = `{{Auth::user()->id}}`;
         const date_out = $("input[name='tanggal_keluar']").val();
         const customer_id = $("select[name='customer']").val();
-        const invoice_number = $("input[name='kode'").val();
+        const invoice_number = "BRGMSK-" + new Date().getTime(); // Generate automatically
         const quantity = $("input[name='jumlah'").val();
 
         const Form = new FormData();
@@ -325,8 +323,8 @@
 
 
     function ubah(){
-        const id =  $("input[name='id']").val();
-        const item_id =  $("input[name='id_barang']").val();
+        const id = $("input[name='id']").val();
+        const item_id = $("input[name='id_barang']").val();
         const user_id = `{{Auth::user()->id}}`;
         const date_out = $("input[name='tanggal_keluar']").val();
         const customer_id = $("select[name='customer']").val();
@@ -380,9 +378,6 @@
                 name:"date_out"
                },
                {
-                data:"invoice_number",
-                name:"invoice_number"
-               },{
                 data:"kode_barang",
                 name:"kode_barang"
                },
@@ -435,6 +430,7 @@
 
             $('#TambahData').modal('show');
 
+            // Generate invoice number but hide it
             id = new Date().getTime();
             $("input[name='kode']").val("BRGMSK-"+id);
             $("input[name='id']").val(null);
