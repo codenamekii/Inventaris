@@ -35,7 +35,7 @@
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
         <div class="p-2">
-          <img src="{{asset('icon.jpg')}}" alt="icon"  width="50%">
+          <img src="{{asset('rama.png')}}" alt="icon"  width="50%">
         </div>
       <a href="#" class="h1" style="text-transform:uppercase;">{{config('app.name')}}</a>
       <div class="navbar">
