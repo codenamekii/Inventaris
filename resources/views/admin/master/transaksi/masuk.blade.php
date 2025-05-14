@@ -68,12 +68,16 @@
                   <div class="row">
                     <div class="col-md-7">
                       <div class="form-group">
+                        <label for="kode" class="form-label">{{ __('incoming item code') }} <span
+                            class="text-danger">*</span></label>
+                        <input type="text" name="kode" readonly class="form-control">
+                        <input type="hidden" name="id" />
+                        <input type="hidden" name="id_barang" />
+                      </div>
+                      <div class="form-group">
                         <label for="tanggal_masuk" class="form-label">{{ __('date of entry') }} <span
                             class="text-danger">*</span></label>
                         <input type="date" name="tanggal_masuk" class="form-control">
-                        <input type="hidden" name="id" />
-                        <input type="hidden" name="id_barang" />
-                        <input type="hidden" name="kode" />
                       </div>
                       <div class="form-group">
                         <label for="supplier" class="form-label">{{ __('choose a supplier') }}<span
@@ -141,6 +145,7 @@
                   <tr>
                     <th class="border-bottom-0" width="8%">{{ __('no') }}</th>
                     <th class="border-bottom-0">{{ __('date of entry') }}</th>
+                    <th class="border-bottom-0">{{ __('incoming item code') }}</th>
                     <th class="border-bottom-0">{{ __('item code') }}</th>
                     <th class="border-bottom-0">{{ __('supplier') }}</th>
                     <th class="border-bottom-0">{{ __('item') }}</th>
@@ -281,7 +286,7 @@
       const user_id = `{{ Auth::user()->id }}`;
       const date_received = $("input[name='tanggal_masuk'").val();
       const supplier_id = $("select[name='supplier'").val();
-      const invoice_number = "BRGMSK-" + new Date().getTime(); // Generate automatically
+      const invoice_number = $("input[name='kode'").val();
       const quantity = $("input[name='jumlah'").val();
 
       const Form = new FormData();
@@ -329,7 +334,7 @@
       const user_id = `{{ Auth::user()->id }}`;
       const date_received = $("input[name='tanggal_masuk'").val();
       const supplier_id = $("select[name='supplier'").val();
-      const invoice_number = $("input[name='kode']").val();
+      const invoice_number = $("input[name='kode'").val();
       const quantity = $("input[name='jumlah'").val();
       $.ajax({
         url: `{{ route('transaksi.masuk.update') }}`,
@@ -386,6 +391,9 @@
             name: "date_received"
           },
           {
+            data: "invoice_number",
+            name: "invoice_number"
+          }, {
             data: "kode_barang",
             name: "kode_barang"
           },
@@ -438,7 +446,12 @@
         $("input[name='jumlah']").val(null);
         $('#simpan').text("{{ __('save') }}");
       });
+
+
     });
+
+
+
     $(document).on("click", ".ubah", function() {
       $("#modal-button").click();
       $("#simpan").text("{{ __('update') }}");
@@ -464,7 +477,9 @@
           $("input[name='jumlah']").val(data.quantity);
         }
       });
+
     });
+
     $(document).on("click", ".hapus", function() {
       let id = $(this).attr('id');
       const swalWithBootstrapButtons = Swal.mixin({
@@ -504,6 +519,8 @@
           });
         }
       });
+
+
     });
   </script>
 @endsection

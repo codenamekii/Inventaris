@@ -114,7 +114,7 @@ class TransactionOutController extends Controller
   public function update(Request $request): JsonResponse
   {
     $request->validate([
-      'id' => 'required|exists:goods_outs,id',
+      'id' => 'required|exists:goods_out,id',
       'item_id' => 'required|exists:items,id',
       'user_id' => 'required|exists:users,id',
       'customer_id' => 'required|exists:customers,id',
@@ -140,7 +140,7 @@ class TransactionOutController extends Controller
   public function delete(Request $request): JsonResponse
   {
     $request->validate([
-      'id' => 'required|exists:goods_outs,id',
+      'id' => 'required|exists:goods_out,id',
     ]);
 
     $data = GoodsOut::findOrFail($request->id);
